@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+
+<GridPane hgap="10" vgap="10" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DoctorRegisterController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <ImageView fitHeight="100" fitWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2">
+        <image>
+            <Image url="@images/logo.png"/>
+        </image>
+    </ImageView>
+
+    <Label text="სახელი და გვარი:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="fullNameField" GridPane.rowIndex="1" GridPane.columnIndex="1" promptText="სახელი და გვარი"/>
+
+    <Label text="მეილი:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="emailField" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="მეილი"/>
+
+    <Label text="პაროლი:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <PasswordField fx:id="passwordField" GridPane.rowIndex="3" GridPane.columnIndex="1" promptText="პაროლი"/>
+
+    <Label text="ექიმის კატეგორია:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <ComboBox fx:id="categoryComboBox" GridPane.rowIndex="4" GridPane.columnIndex="1" promptText="აირჩიეთ კატეგორია">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="სტომატოლოგი"/>
+                <String fx:value="თერაპევტი"/>
+                <String fx:value="ოფთალოლოგი"/>
+                <String fx:value="ქირურგი"/>
+                <String fx:value="ორტოფედი"/>
+                <String fx:value="ფსიქოლოგი"/>
+                <String fx:value="პედიატრი"/>
+                <String fx:value="დერმატოლოგი"/>
+                <String fx:value="უროლოგი"/>
+                <String fx:value="ალერგოლოგი"/>
+                <String fx:value="სამხედრო მედიცინა"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <Label text="პირადი ნომერი:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <TextField fx:id="personalIdField" GridPane.rowIndex="5" GridPane.columnIndex="1" promptText="პირადი ნომერი"/>
+
+    <Label text="დამადასტურებელი დოკუმენტი (ფაილი):" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+    <TextField fx:id="certificationFileField" GridPane.rowIndex="6" GridPane.columnIndex="1" promptText="ფაილის სახელი ან ბმული"/>
+
+    <Label text="საკუთარი ფოტო (ფაილი):" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+    <TextField fx:id="photoField" GridPane.rowIndex="7" GridPane.columnIndex="1" promptText="ფოტოს სახელი ან ბმული"/>
+
+    <Label text="კლინიკის მისამართი:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+    <TextField fx:id="clinicAddressField" GridPane.rowIndex="8" GridPane.columnIndex="1" promptText="მისამართი"/>
+
+    <Label text="ბიო:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+    <TextArea fx:id="bioArea" GridPane.rowIndex="9" GridPane.columnIndex="1" promptText="ჩაწერეთ ბიო"/>
+
+    <Button text="რეგისტრაცია" GridPane.rowIndex="10" GridPane.columnIndex="1" maxWidth="150" onAction="#handleDoctorRegister"/>
+</GridPane>
