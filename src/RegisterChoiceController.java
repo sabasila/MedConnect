@@ -8,7 +8,6 @@ import java.io.IOException;
 
 public class RegisterChoiceController {
 
-    // "Register as Doctor" ღილაკის მოქმედება
     public void registerAsDoctor(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("doctor_register.fxml"));
@@ -21,13 +20,24 @@ public class RegisterChoiceController {
         }
     }
 
-    // "Register as Patient" ღილაკის მოქმედება
     public void registerAsPatient(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("patient_register.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("პაციენტის რეგისტრაცია");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goBackToLogin(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("შესვლა");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

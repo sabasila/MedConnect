@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="LoginController" spacing="20" alignment="CENTER" style="-fx-padding: 40;">
+<VBox alignment="CENTER" prefHeight="348.0" prefWidth="421.0" spacing="20" style="-fx-padding: 40;" stylesheets="@login.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="LoginController">
 
     <GridPane hgap="10" vgap="10">
-        <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="emailField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="მეილი:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Password:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <PasswordField fx:id="passwordField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="პაროლი:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 
-    <Button text="Login" onAction="#handleLogin"/>
-    <Hyperlink text="Register" onAction="#goToRegisterChoice"/>
+    <Button onAction="#handleLogin" text="ავტორიცაზია" />
+    <Hyperlink onAction="#goToRegisterChoice" text="რეგისტრაცია" />
 </VBox>

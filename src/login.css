@@ -1,0 +1,55 @@
+
+.vbox {
+    -fx-background-color: #f4f6fa;
+    -fx-alignment: center;
+}
+
+.grid-pane {
+    -fx-padding: 20;
+}
+
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1d419d;
+    -fx-font-weight: bold;
+}
+
+
+.text-field,
+.password-field {
+    -fx-pref-width: 200;
+    -fx-padding: 8 10;
+    -fx-background-color: white;
+    -fx-border-color: #1d419d;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-focus-color: #1d419d;
+    -fx-faint-focus-color: transparent;
+}
+
+
+.button {
+    -fx-background-color: #1d419d;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #16347a;
+}
+
+
+.hyperlink {
+    -fx-text-fill: #1d419d;
+    -fx-underline: false;
+    -fx-font-size: 13px;
+}
+
+.hyperlink:hover {
+    -fx-underline: true;
+}

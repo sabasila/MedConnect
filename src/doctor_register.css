@@ -1,0 +1,91 @@
+
+.grid-pane {
+    -fx-background-color: #f4f6fa;
+    -fx-padding: 40;
+    -fx-hgap: 12;
+    -fx-vgap: 14;
+    -fx-alignment: center;
+}
+
+
+.label {
+    -fx-text-fill: #1d419d;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
+.text-field,
+.password-field,
+.text-area {
+    -fx-pref-width: 280;
+    -fx-padding: 8 10;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #1d419d;
+    -fx-focus-color: #1d419d;
+    -fx-faint-focus-color: transparent;
+    -fx-font-size: 13px;
+}
+
+
+.combo-box {
+    -fx-pref-width: 280;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #1d419d;
+    -fx-background-color: #ffffff;
+    -fx-font-size: 13px;
+    -fx-padding: 4 10;
+}
+
+.combo-box:hover {
+    -fx-border-color: #16347a;
+}
+
+
+.button {
+    -fx-background-color: #1d419d;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.3, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: #16347a;
+}
+
+.text-area {
+    -fx-pref-row-count: 4;
+    -fx-wrap-text: true;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 8, 0.2, 0, 2);
+    -fx-smooth: true;
+}
+
+
+.button.back-button {
+    -fx-pref-width: 80px;
+    -fx-font-size: 12px;
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(29, 65, 157, 0.5); /* მკრთალი ლურჯი */
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-alignment: CENTER_LEFT; /* თუ გინდა ტექსტი მარცხნივ */
+}
+
+.button.back-button:hover {
+    -fx-background-color: rgba(29, 65, 157, 0.1);
+    -fx-text-fill: rgba(29, 65, 157, 0.8);
+}
+}

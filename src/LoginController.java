@@ -26,16 +26,17 @@ public class LoginController {
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
+            if (rs.next())
+            {
                 String userType = rs.getString("user_type");
                 int userId = rs.getInt("id");
 
-                // გადახვედით მთავარ გვერდზე მომხმარებლის ტიპის მიხედვით
+
                 if (userType.equals("doctor")) {
-                    // გადადი ექიმის მთავარ გვერდზე
+
                     System.out.println("Doctor login: ID = " + userId);
                 } else {
-                    // გადადი პაციენტის მთავარ გვერდზე
+
                     System.out.println("Patient login: ID = " + userId);
                 }
             } else {

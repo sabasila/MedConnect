@@ -13,7 +13,8 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 
-<GridPane hgap="10" vgap="10" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DoctorRegisterController">
+<?import javafx.scene.layout.HBox?>
+<GridPane hgap="10" vgap="10" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DoctorRegisterController" stylesheets="@doctor_register.css">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
@@ -55,11 +56,17 @@
     <Label text="პირადი ნომერი:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
     <TextField fx:id="personalIdField" GridPane.rowIndex="5" GridPane.columnIndex="1" promptText="პირადი ნომერი"/>
 
-    <Label text="დამადასტურებელი დოკუმენტი (ფაილი):" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-    <TextField fx:id="certificationFileField" GridPane.rowIndex="6" GridPane.columnIndex="1" promptText="ფაილის სახელი ან ბმული"/>
+    <Label text="დამადასტურებელი დოკუმენტი:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+    <HBox spacing="10" GridPane.rowIndex="6" GridPane.columnIndex="1">
+        <Button text="ფაილის არჩევა" onAction="#handleChooseCertification"/>
+        <Label fx:id="certificationFileLabel" text="ფაილი არჩეული არ არის"/>
+    </HBox>
 
-    <Label text="საკუთარი ფოტო (ფაილი):" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-    <TextField fx:id="photoField" GridPane.rowIndex="7" GridPane.columnIndex="1" promptText="ფოტოს სახელი ან ბმული"/>
+    <Label text="საკუთარი ფოტო:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+    <HBox spacing="10" GridPane.rowIndex="7" GridPane.columnIndex="1">
+        <Button text="ფაილის არჩევა" onAction="#handleUploadPhoto"/>
+        <Label fx:id="photoFileLabel" text="ფაილი არჩეული არ არის"/>
+    </HBox>
 
     <Label text="კლინიკის მისამართი:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
     <TextField fx:id="clinicAddressField" GridPane.rowIndex="8" GridPane.columnIndex="1" promptText="მისამართი"/>
@@ -68,4 +75,9 @@
     <TextArea fx:id="bioArea" GridPane.rowIndex="9" GridPane.columnIndex="1" promptText="ჩაწერეთ ბიო"/>
 
     <Button text="რეგისტრაცია" GridPane.rowIndex="10" GridPane.columnIndex="1" maxWidth="150" onAction="#handleDoctorRegister"/>
+
+    <Button text="უკან დაბრუნება" onAction="#goBackToLogin"
+            GridPane.rowIndex="11" GridPane.columnIndex="0"
+            styleClass="button back-button"/>
+
 </GridPane>

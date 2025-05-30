@@ -1,0 +1,46 @@
+.root {
+    -fx-background-color: white;
+    -fx-padding: 40;
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-pref-height: 300; /* თუ გინდა VBox-მდე გარკვეული სიმაღლე */
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #1d419d;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-pref-width: 200px;
+    -fx-background-color: #1d419d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #154080;
+    -fx-border-width: 1.5;
+}
+
+.button:hover {
+    -fx-background-color: #154080;
+}
+
+
+.button.back-button {
+    -fx-pref-width: 80px;
+    -fx-font-size: 12px;
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(29, 65, 157, 0.5); /* მკრთალი ლურჯი, გამჭვირვალე */
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-margin-top: 20px;
+}
+
+.button.back-button:hover {
+    -fx-background-color: rgba(29, 65, 157, 0.1);
+    -fx-text-fill: rgba(29, 65, 157, 0.8); /* ოდნავ მკვეთრი */
+}
