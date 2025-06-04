@@ -1,13 +1,13 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Alert;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.sql.*;
+import java.io.IOException;
 
 public class LoginController {
 
@@ -19,34 +19,36 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        try (Connection conn = Database.connect()) {
-            String sql = "SELECT id, user_type FROM users WHERE email = ? AND password = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, email);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.authenticate(email, password);
 
-            if (rs.next())
-            {
-                String userType = rs.getString("user_type");
-                int userId = rs.getInt("id");
+        if (user != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
 
+                Parent root = loader.load();
 
-                if (userType.equals("doctor")) {
+                HomeController controller = loader.getController();
+                controller.setUserData(user.getId(), user.getUserType());
 
-                    System.out.println("Doctor login: ID = " + userId);
-                } else {
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.setTitle("მთავარი გვერდი");
+                newStage.show();
 
-                    System.out.println("Patient login: ID = " + userId);
-                }
-            } else {
-                showAlert("არასწორი ელ.ფოსტა ან პაროლი");
+                Stage oldStage = (Stage) emailField.getScene().getWindow();
+                oldStage.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert("ფაილის ჩატვირთვის შეცდომა.");
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            showAlert("არასწორი ელ.ფოსტა ან პაროლი");
         }
     }
+
 
     @FXML
     private void goToRegisterChoice(ActionEvent event) {

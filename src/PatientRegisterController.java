@@ -38,6 +38,9 @@ public class PatientRegisterController {
                 patStmt.executeUpdate();
 
                 showAlert(Alert.AlertType.INFORMATION, "წარმატებით რეგისტრირდით!");
+
+                // გადამისამართება ავტორიზაციის გვერდზე
+                goToLoginPage(event);
             }
 
         } catch (Exception e) {
@@ -52,7 +55,12 @@ public class PatientRegisterController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     public void goBackToLogin(ActionEvent event) {
+        goToLoginPage(event);
+    }
+
+    private void goToLoginPage(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -72,7 +72,7 @@ public class DoctorRegisterController {
     }
 
     @FXML
-    private void handleDoctorRegister() {
+    private void handleDoctorRegister(ActionEvent event) {
         try (Connection conn = Database.connect()) {
             String userSql = "INSERT INTO users (full_name, email, password, personal_id, user_type) VALUES (?, ?, ?, ?, 'doctor') RETURNING id";
             PreparedStatement userStmt = conn.prepareStatement(userSql);
@@ -94,14 +94,22 @@ public class DoctorRegisterController {
                 docStmt.setString(5, clinicAddressField.getText());
                 docStmt.setString(6, bioArea.getText());
                 docStmt.executeUpdate();
+
+                showAlert(Alert.AlertType.INFORMATION, "წარმატებით რეგისტრირდით!");
+                goToLoginPage(event);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "დაფიქსირდა შეცდომა რეგისტრაციისას");
         }
     }
 
     public void goBackToLogin(ActionEvent event) {
+        goToLoginPage(event);
+    }
+
+    private void goToLoginPage(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -113,5 +121,10 @@ public class DoctorRegisterController {
         }
     }
 
-
+    private void showAlert(Alert.AlertType type, String message) {
+        Alert alert = new Alert(type);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

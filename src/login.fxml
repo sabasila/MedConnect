@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" prefHeight="348.0" prefWidth="421.0" spacing="20" style="-fx-padding: 40;" stylesheets="@login.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="LoginController">
+
+    <ImageView fitHeight="100" fitWidth="300">
+        <image>
+            <Image url="logo.png"/>
+        </image>
+    </ImageView>
 
     <GridPane hgap="10" vgap="10">
         <Label text="მეილი:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -11,14 +18,15 @@
 
         <Label text="პაროლი:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
+
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
     </GridPane>
 
     <Button onAction="#handleLogin" text="ავტორიცაზია" />

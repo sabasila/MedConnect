@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
@@ -9,6 +10,13 @@
       alignment="TOP_CENTER"
       spacing="20"
       styleClass="root">
+
+    <!-- ლოგოს დამატება ზემოთ -->
+    <ImageView fitHeight="80" fitWidth="280">
+        <image>
+            <Image url="logo.png"/>
+        </image>
+    </ImageView>
 
     <Label text="აირჩიეთ მომხმარებლის ტიპი:" styleClass="label"/>
     <Button text="ექიმი" onAction="#registerAsDoctor" styleClass="button"/>
