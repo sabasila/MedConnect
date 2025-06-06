@@ -1,4 +1,10 @@
+package DAOS;
+
 import java.sql.*;
+
+import Class.User;
+import Database.Database;
+
 
 public class UserDAO {
 

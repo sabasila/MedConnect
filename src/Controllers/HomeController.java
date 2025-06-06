@@ -1,3 +1,6 @@
+package Controllers;
+
+import DAOS.DoctorDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import Class.Doctor;
 
 import java.util.List;
 
@@ -20,19 +24,19 @@ public class HomeController {
     @FXML
     private Button btnSearchDoctor, btnHome, btnDoctors, btnPatients;
 
-    private DoctorDAO doctorDAO = new DoctorDAO();
+    private final DoctorDAO doctorDAO = new DoctorDAO();
 
     private int currentUserId;
     private String currentUserType;
-
 
     public void setUserData(int userId, String userType) {
         this.currentUserId = userId;
         this.currentUserType = userType;
 
-        loadTopRatedDoctors();
+        // ვანახლებ ტოპ შეფასებული ექიმების სია
+        //loadTopRatedDoctors();
 
-        if (!"doctor".equals(currentUserType)) {
+        if ("doctor".equals(currentUserType)) {
             btnPatients.setVisible(false);
         }
     }
@@ -46,7 +50,14 @@ public class HomeController {
             HBox doctorCard = new HBox(10);
             doctorCard.setStyle("-fx-padding: 10; -fx-background-color: #f0f0f0; -fx-background-radius: 10;");
 
-            ImageView photo = new ImageView(new Image(doctor.getPhoto()));
+            ImageView photo = new ImageView();
+            try {
+                Image image = new Image(doctor.getPhoto(), true);
+                photo.setImage(image);
+            } catch (Exception e) {
+                System.out.println("Image loading error: " + doctor.getPhoto());
+            }
+
             photo.setFitWidth(80);
             photo.setFitHeight(80);
 
@@ -67,7 +78,7 @@ public class HomeController {
 
     private void openDoctorProfile(int doctorId) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("doctor_profile.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/doctor_profile.fxml"));
             Parent root = loader.load();
 
             DoctorProfileController controller = loader.getController();
@@ -82,28 +93,31 @@ public class HomeController {
 
     @FXML
     private void onSearchDoctorClicked() {
-        navigate("search_doctor.fxml");
+        navigate("/FXML/search_doctor.fxml");
     }
 
     @FXML
     private void onDoctorsClicked() {
-        navigate("doctors_page.fxml");
+        navigate("/FXML/doctors_page.fxml");
     }
 
     @FXML
     private void onPatientsClicked() {
-        navigate("patients_page.fxml");
+        navigate("/FXML/patients_page.fxml");
     }
 
     @FXML
     private void onHomeClicked() {
-        navigate("home.fxml");
+        navigate("/FXML/home.fxml");
     }
 
     private void navigate(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
+
+            HomeController controller = loader.getController();
+            controller.setUserData(currentUserId, currentUserType);
 
             Stage stage = (Stage) topRatedDoctorsBox.getScene().getWindow();
             stage.setScene(new Scene(root));

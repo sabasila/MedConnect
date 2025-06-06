@@ -1,7 +1,13 @@
+package DAOS;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import Class.Patient;
+import Database.Database;
+
 
 public class PatientDAO {
 
@@ -9,7 +15,6 @@ public class PatientDAO {
         return Database.getConnection();
     }
 
-    // პაციენტის ცხრილიდან წამოღება id-ის მიხედვით (users + patients)
     public Patient getPatientById(int patientId) {
         String sql = "SELECT u.id, u.full_name, u.personal_id " +
                 "FROM users u " +

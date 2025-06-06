@@ -1,8 +1,12 @@
+package Controllers;
+
+import DAOS.DoctorDAO;
+import Class.Doctor;
+import Class.Rating;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
@@ -83,7 +87,6 @@ public class DoctorProfileController {
             alert.show();
             return;
         }
-
 
         int patientId = 2;
 

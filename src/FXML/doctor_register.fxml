@@ -15,14 +15,14 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.HPos?>
-<GridPane hgap="10" vgap="10" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DoctorRegisterController" stylesheets="@doctor_register.css">
+<GridPane hgap="10" vgap="10" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DoctorRegisterController" stylesheets="@../CSS/doctor_register.css">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
     <ImageView fitHeight="100" fitWidth="300" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2">
         <image>
-            <Image url="logo.png"/>
+            <Image url="/Images/logo.png"/>
         </image>
     </ImageView>
 

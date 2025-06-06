@@ -6,16 +6,16 @@
 <?import javafx.scene.image.Image?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="PatientRegisterController"
+      fx:controller="Controllers.PatientRegisterController"
       alignment="TOP_CENTER"
       spacing="20"
       style="-fx-padding: 40;"
-      stylesheets="@patient_register.css">
+      stylesheets="@../CSS/patient_register.css">
 
 
     <ImageView fitHeight="100" fitWidth="300" styleClass="image-view">
         <image>
-            <Image url="logo.png"/>
+            <Image url="/Images/logo.png"/>
         </image>
     </ImageView>
 

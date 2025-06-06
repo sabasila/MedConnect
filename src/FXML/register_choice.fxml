@@ -5,16 +5,16 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="RegisterChoiceController"
-      stylesheets="@register_choice.css"
+      fx:controller="Controllers.RegisterChoiceController"
+      stylesheets="@../CSS/register_choice.css"
       alignment="TOP_CENTER"
       spacing="20"
       styleClass="root">
 
-    <!-- ლოგოს დამატება ზემოთ -->
+
     <ImageView fitHeight="80" fitWidth="280">
         <image>
-            <Image url="logo.png"/>
+            <Image url="/Images/logo.png"/>
         </image>
     </ImageView>
 

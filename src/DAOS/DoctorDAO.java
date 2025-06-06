@@ -1,3 +1,9 @@
+package DAOS;
+
+import Class.Doctor;
+import Class.Rating;
+import Database.Database;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +46,6 @@ public class DoctorDAO {
         return doctors;
     }
 
-
     public Doctor getDoctorById(int doctorId) {
         String sql = """
             SELECT u.full_name, d.photo, d.bio,
@@ -72,7 +77,6 @@ public class DoctorDAO {
 
         return null;
     }
-
 
     public List<Rating> getRatingsForDoctor(int doctorId) {
         List<Rating> ratings = new ArrayList<>();

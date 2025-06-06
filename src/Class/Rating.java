@@ -1,3 +1,5 @@
+package Class;
+
 import java.time.LocalDateTime;
 
 public class Rating {
@@ -12,7 +14,7 @@ public class Rating {
     public Rating() {
     }
 
-    // Constructor for creating Rating with only rating and comment
+    // Constructor for creating Class.Rating with only rating and comment
     public Rating(int ratingValue, String comment) {
         this.rating = ratingValue;
         this.comment = comment;

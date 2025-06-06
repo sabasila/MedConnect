@@ -1,3 +1,5 @@
+package Controllers;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,7 +12,7 @@ public class RegisterChoiceController {
 
     public void registerAsDoctor(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("doctor_register.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/doctor_register.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("ექიმის რეგისტრაცია");
@@ -22,7 +24,7 @@ public class RegisterChoiceController {
 
     public void registerAsPatient(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("patient_register.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/patient_register.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("პაციენტის რეგისტრაცია");
@@ -34,7 +36,7 @@ public class RegisterChoiceController {
 
     public void goBackToLogin(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("შესვლა");

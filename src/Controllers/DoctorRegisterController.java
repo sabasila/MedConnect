@@ -1,3 +1,5 @@
+package Controllers;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +16,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import Class.Diagnosis;
 
-public class DoctorRegisterController {
+import Database.Database;
+
+public class DoctorRegisterController
+{
 
     @FXML private TextField fullNameField;
     @FXML private TextField emailField;
@@ -111,7 +117,7 @@ public class DoctorRegisterController {
 
     private void goToLoginPage(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("შესვლა");

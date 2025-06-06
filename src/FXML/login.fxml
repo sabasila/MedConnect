@@ -4,11 +4,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="348.0" prefWidth="421.0" spacing="20" style="-fx-padding: 40;" stylesheets="@login.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="LoginController">
+<VBox alignment="CENTER" prefHeight="348.0" prefWidth="421.0" spacing="20" style="-fx-padding: 40;" stylesheets="@../CSS/login.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="Controllers.LoginController">
 
     <ImageView fitHeight="100" fitWidth="300">
         <image>
-            <Image url="logo.png"/>
+            <Image url="/Images/logo.png"/>
         </image>
     </ImageView>
 

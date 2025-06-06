@@ -1,3 +1,5 @@
+package Controllers;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+
+import Database.Database;
+
 
 public class PatientRegisterController {
 
@@ -62,7 +67,7 @@ public class PatientRegisterController {
 
     private void goToLoginPage(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("შესვლა");

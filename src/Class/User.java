@@ -1,3 +1,5 @@
+package Class;
+
 public class User {
     private int id;
     private String userType;

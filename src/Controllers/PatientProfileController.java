@@ -1,3 +1,7 @@
+package Controllers;
+
+import DAOS.DiagnosisDAO;
+import DAOS.PatientDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -6,16 +10,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
+import Class.Patient;
+import Class.Diagnosis;
+import DAOS.RatingDAO;
+import Database.Database;
+
 
 public class PatientProfileController {
     private int patientId;
 
     @FXML private Label patientName;
     @FXML private Label patientPersonalId;
-    @FXML private VBox diagnosesBox;  // პაციენტის პრობლემები/გამოკვლევები
+    @FXML private VBox diagnosesBox;
 
-    // Doctor rating UI elements
-    @FXML private HBox starRatingBox; // ვარსკვლავებისთვის
+    // Class.Doctor rating UI elements
+    @FXML private HBox starRatingBox;
     @FXML private TextArea ratingCommentArea;
     @FXML private Button submitRatingBtn;
 

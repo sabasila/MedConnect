@@ -9,9 +9,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
             primaryStage.setTitle("MedConnect");
-            primaryStage.setScene(new Scene(root, 400, 400));
+            primaryStage.setScene(new Scene(root, 400, 600));
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

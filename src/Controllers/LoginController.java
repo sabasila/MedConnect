@@ -1,3 +1,5 @@
+package Controllers;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
+
+import DAOS.UserDAO;
+import Class.User;
+
+
 
 public class LoginController {
 
@@ -24,7 +31,7 @@ public class LoginController {
 
         if (user != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/home.fxml"));
 
                 Parent root = loader.load();
 
@@ -53,7 +60,7 @@ public class LoginController {
     @FXML
     private void goToRegisterChoice(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("register_choice.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/register_choice.fxml"));
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {

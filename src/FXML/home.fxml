@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.HomeController"
+            stylesheets="@../CSS/home.css">
+
+    <top>
+        <HBox spacing="15" alignment="CENTER_LEFT" styleClass="navbar">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+
+            <ImageView fitHeight="40" fitWidth="120">
+                <image>
+                    <Image url="/Images/logo.png"/>
+                </image>
+            </ImageView>
+
+            <TextField fx:id="searchField" promptText="იპოვე ექიმი..." />
+            <Button text="ძებნა"  />
+
+            <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
+
+            <Button text="ექიმები" />
+            <Button text="პაციენტები" />
+            <Button text="👤"  />
+        </HBox>
+    </top>
+
+    <center>
+        <Label text="მთავარი გვერდი" styleClass="main-label"/>
+    </center>
+
+</BorderPane>

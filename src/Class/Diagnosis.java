@@ -1,3 +1,5 @@
+package Class;
+
 import java.time.LocalDateTime;
 
 public class Diagnosis {
@@ -6,7 +8,7 @@ public class Diagnosis {
     private String description;
     private LocalDateTime createdAt;
 
-    // გეტერიები და სეტერიები
+
 
     public int getId() {
         return id;
