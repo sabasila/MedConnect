@@ -79,6 +79,34 @@ public class DoctorRegisterController
 
     @FXML
     private void handleDoctorRegister(ActionEvent event) {
+        // ვალიდაცია
+        if (fullNameField.getText().isEmpty() ||
+                emailField.getText().isEmpty() ||
+                passwordField.getText().isEmpty() ||
+                personalIdField.getText().isEmpty() ||
+                categoryComboBox.getValue() == null ||
+                clinicAddressField.getText().isEmpty() ||
+                bioArea.getText().isEmpty()) {
+
+            showAlert(Alert.AlertType.WARNING, "გთხოვთ, შეავსეთ ყველა ველი სერტიფიკატის გარდა.");
+            return;
+        }
+
+        if (!emailField.getText().contains("@")) {
+            showAlert(Alert.AlertType.WARNING, "გთხოვთ, ჩაწერეთ სწორი ელ.ფოსტა (@ სიმბოლოთი).");
+            return;
+        }
+
+        if (passwordField.getText().length() < 8) {
+            showAlert(Alert.AlertType.WARNING, "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს.");
+            return;
+        }
+
+        if (!personalIdField.getText().matches("\\d{11}")) {
+            showAlert(Alert.AlertType.WARNING, "პირადი ნომერი უნდა შეიცავდეს ზუსტად 11 ციფრს.");
+            return;
+        }
+
         try (Connection conn = Database.connect()) {
             String userSql = "INSERT INTO users (full_name, email, password, personal_id, user_type) VALUES (?, ?, ?, ?, 'doctor') RETURNING id";
             PreparedStatement userStmt = conn.prepareStatement(userSql);

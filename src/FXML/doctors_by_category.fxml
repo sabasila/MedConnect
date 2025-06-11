@@ -1,0 +1,14 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.DoctorsByCategoryController"
+      spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20;">
+
+    <Label fx:id="categoryLabel" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+
+    <VBox fx:id="doctorsListBox" spacing="10" />
+
+    <Button text="უკან" onAction="#onBackClicked" />
+
+</VBox>

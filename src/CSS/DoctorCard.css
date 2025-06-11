@@ -1,0 +1,54 @@
+.doctor-card {
+    -fx-padding: 10;
+    -fx-background-color: #f4f6fa;
+    -fx-background-radius: 10;
+    -fx-border-color: #d0d6e1;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 4, 0, 0, 1);
+}
+
+.doctor-card .image-view {
+    -fx-fit-width: 100;
+    -fx-fit-height: 100;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.1), 2, 0, 0, 1);
+    -fx-background-radius: 10;
+}
+
+.doctor-card .label {
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+.doctor-card .name-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+}
+
+.doctor-card .bio-label {
+    -fx-text-fill: #3a3a3a;
+    -fx-font-size: 12px;
+}
+
+.doctor-card .rating-label,
+.doctor-card .address-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: black;
+}
+
+.doctor-card .profile-btn {
+    -fx-background-color: #1d419d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 6 14;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-border-radius: 6;
+    -fx-border-color: transparent;
+}
+
+.doctor-card .profile-btn:hover {
+    -fx-background-color: #16347a;
+}

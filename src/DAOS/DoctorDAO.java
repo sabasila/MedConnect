@@ -10,17 +10,18 @@ import java.util.List;
 
 public class DoctorDAO {
 
-    private Connection conn = Database.getConnection();
+    private static Connection conn = Database.getConnection();
 
     public List<Doctor> getTopRatedDoctors() {
         List<Doctor> doctors = new ArrayList<>();
 
         String sql = """
-            SELECT u.id, u.full_name, d.photo, d.bio, COALESCE(AVG(r.rating), 0) AS avg_rating
+            SELECT u.id, u.full_name, d.photo, d.bio, d.clinic_address,
+                   COALESCE(AVG(r.rating), 0) AS avg_rating
             FROM users u
             JOIN doctors d ON u.id = d.user_id
             LEFT JOIN ratings r ON u.id = r.doctor_id
-            GROUP BY u.id, d.photo, d.bio
+            GROUP BY u.id, d.photo, d.bio, d.clinic_address
             ORDER BY avg_rating DESC
             LIMIT 5
         """;
@@ -34,6 +35,7 @@ public class DoctorDAO {
                 doctor.setFullName(rs.getString("full_name"));
                 doctor.setPhoto(rs.getString("photo"));
                 doctor.setBio(rs.getString("bio"));
+                doctor.setClinicAddress(rs.getString("clinic_address"));
                 doctor.setAverageRating(rs.getDouble("avg_rating"));
 
                 doctors.add(doctor);
@@ -48,13 +50,13 @@ public class DoctorDAO {
 
     public Doctor getDoctorById(int doctorId) {
         String sql = """
-            SELECT u.full_name, d.photo, d.bio,
+            SELECT u.full_name, d.photo, d.bio, d.clinic_address,
                    COALESCE(AVG(r.rating), 0) AS avg_rating
             FROM users u
             JOIN doctors d ON u.id = d.user_id
             LEFT JOIN ratings r ON u.id = r.doctor_id
             WHERE u.id = ?
-            GROUP BY u.full_name, d.photo, d.bio
+            GROUP BY u.full_name, d.photo, d.bio, d.clinic_address
         """;
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -67,6 +69,7 @@ public class DoctorDAO {
                 doctor.setFullName(rs.getString("full_name"));
                 doctor.setPhoto(rs.getString("photo"));
                 doctor.setBio(rs.getString("bio"));
+                doctor.setClinicAddress(rs.getString("clinic_address"));
                 doctor.setAverageRating(rs.getDouble("avg_rating"));
                 return doctor;
             }
@@ -112,5 +115,60 @@ public class DoctorDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<Doctor> getDoctorsByCategory(String category) {
+        List<Doctor> doctors = new ArrayList<>();
+
+        String sql = """
+        SELECT u.id, u.full_name, d.photo, d.bio, d.clinic_address,
+               COALESCE(AVG(r.rating), 0) AS avg_rating
+        FROM users u
+        JOIN doctors d ON u.id = d.user_id
+        LEFT JOIN ratings r ON u.id = r.doctor_id
+        WHERE d.category = ?
+        GROUP BY u.id, u.full_name, d.photo, d.bio, d.clinic_address
+        ORDER BY avg_rating DESC
+    """;
+
+        try (PreparedStatement stmt = Database.getConnection().prepareStatement(sql)) {
+            stmt.setString(1, category);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Doctor doctor = new Doctor();
+                doctor.setId(rs.getInt("id"));
+                doctor.setFullName(rs.getString("full_name"));
+                doctor.setPhoto(rs.getString("photo"));
+                doctor.setBio(rs.getString("bio"));
+                doctor.setClinicAddress(rs.getString("clinic_address"));
+                doctor.setAverageRating(rs.getDouble("avg_rating"));
+
+                doctors.add(doctor);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return doctors;
+    }
+
+    public List<String> getAllCategories() {
+        List<String> categories = new ArrayList<>();
+        String sql = "SELECT DISTINCT category FROM doctors ORDER BY category ASC";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                categories.add(rs.getString("category"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categories;
     }
 }

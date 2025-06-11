@@ -2,13 +2,21 @@ package Controllers;
 
 import DAOS.DoctorDAO;
 import Class.Doctor;
+import Class.Session;
 import Class.Rating;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.EventObject;
 import java.util.List;
 
 public class DoctorProfileController {
@@ -38,6 +46,9 @@ public class DoctorProfileController {
 
     @FXML
     private VBox commentsBox;
+
+    @FXML
+    private Button backButton;  // ახალი backButton
 
     public void setDoctorId(int doctorId) {
         this.doctorId = doctorId;
@@ -76,6 +87,7 @@ public class DoctorProfileController {
     private void initialize() {
         ratingComboBox.getItems().addAll(1, 2, 3, 4, 5);
         submitButton.setOnAction(e -> submitRating());
+
     }
 
     private void submitRating() {
@@ -100,5 +112,20 @@ public class DoctorProfileController {
         commentArea.clear();
         loadDoctorDetails();
         loadComments();
+    }
+
+
+    @FXML
+    private void onBackButtonClicked() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/home.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

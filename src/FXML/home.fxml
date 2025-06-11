@@ -23,18 +23,19 @@
             </ImageView>
 
             <TextField fx:id="searchField" promptText="იპოვე ექიმი..." />
-            <Button text="ძებნა"  />
+            <Button text="ძებნა" />
 
             <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
 
-            <Button text="ექიმები" />
-            <Button text="პაციენტები" />
-            <Button text="👤"  />
+            <Button fx:id="btnPatients" text="პაციენტები" />
+            <Button fx:id="btnDoctors" text="ექიმები" onAction="#onDoctorsClicked"/>
+            <Button text="👤" onAction="#onProfileClicked" />
         </HBox>
     </top>
 
     <center>
-        <Label text="მთავარი გვერდი" styleClass="main-label"/>
+        <VBox fx:id="topRatedDoctorsBox" spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20;">
+        </VBox>
     </center>
 
 </BorderPane>

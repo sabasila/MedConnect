@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx/21"
+            fx:controller="Controllers.PatientProfileController">
+
+    <top>
+        <Label text="პაციენტის პროფილი" style="-fx-font-size: 20px; -fx-padding: 10;" />
+    </top>
+
+    <center>
+        <VBox spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20;">
+            <Label text="სახელი:" />
+            <Label fx:id="patientName" style="-fx-font-size: 16px;" />
+
+            <Label text="პირადი ნომერი:" />
+            <Label fx:id="patientPersonalId" style="-fx-font-size: 16px;" />
+
+            <Label text="დიაგნოზები:" style="-fx-font-size: 16px; -fx-padding: 10 0 0 0;" />
+            <VBox fx:id="diagnosesBox" spacing="5"/>
+
+            <Separator/>
+
+            <Label text="ექიმის შეფასება" style="-fx-font-size: 16px;" />
+            <HBox fx:id="starRatingBox" spacing="5" />
+
+            <TextArea fx:id="ratingCommentArea" promptText="დაწერე კომენტარი..." prefRowCount="3" wrapText="true"/>
+
+            <Button fx:id="submitRatingBtn" text="დამატება" onAction="#onSubmitRating"/>
+        </VBox>
+    </center>
+
+</BorderPane>

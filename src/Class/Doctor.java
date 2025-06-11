@@ -5,7 +5,7 @@ public class Doctor {
     private String fullName;
     private String photo;
     private String bio;
-    private String ClinicAddress ;
+    private String ClinicAddress;
     private double averageRating;
 
     public int getId() { return id; }
@@ -24,6 +24,5 @@ public class Doctor {
     public void setAverageRating(double averageRating) { this.averageRating = averageRating; }
 
     public String getClinicAddress() { return ClinicAddress; }
-    public void setClinicAddress(double ClinicAddress) { this.ClinicAddress = String.valueOf(ClinicAddress); }
-    }
-
+    public void setClinicAddress(String clinicAddress) { this.ClinicAddress = clinicAddress; }
+}

@@ -1,0 +1,15 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.SearchDoctorController"
+      spacing="20" alignment="TOP_CENTER" padding="20">
+
+    <ComboBox fx:id="categoryComboBox" promptText="აირჩიეთ კატეგორია" prefWidth="300"/>
+
+    <ScrollPane fitToWidth="true" prefHeight="500">
+        <VBox fx:id="doctorContainer" spacing="15" padding="10"/>
+    </ScrollPane>
+
+</VBox>

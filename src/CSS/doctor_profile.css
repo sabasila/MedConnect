@@ -1,0 +1,100 @@
+.root {
+    -fx-background-color: #f4f6f5;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.label {
+    -fx-text-fill: #1d419d;
+    -fx-font-weight: bold;
+}
+
+.label#bioLabel {
+    -fx-font-weight: normal;
+    -fx-text-fill: #555;
+    -fx-font-size: 13px;
+}
+
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.2, 0, 2);
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+}
+
+.image-view, .image-view > ImageView {
+    -fx-fit-height: 100;
+    -fx-fit-width: 100;
+    -fx-preserve-ratio: true;
+    -fx-clip: true;
+    -fx-border-color: #1d419d;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%;
+}
+
+.text-area, .combo-box {
+    -fx-pref-width: 300px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b0bfdc;
+    -fx-border-width: 1.5;
+    -fx-padding: 6 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 2, 0, 0, 1);
+    -fx-font-size: 14px;
+    -fx-text-fill: #222;
+}
+
+.text-area {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-wrap-text: true;
+}
+
+.button {
+    -fx-background-color: #1d419d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-padding: 8 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 4, 0, 0, 2);
+    -fx-border: none;
+    -fx-font-size: 15px;
+    -fx-transition: all 0.3s ease;
+}
+
+.button:hover {
+    -fx-background-color: #17377f;
+}
+
+.vbox {
+    -fx-alignment: top_center;
+    -fx-spacing: 12;
+    -fx-padding: 20 40 20 40;
+}
+
+.hbox {
+    -fx-spacing: 10;
+    -fx-alignment: center_left;
+}
+
+.comments-box {
+    -fx-spacing: 8;
+    -fx-padding: 10 0 0 0;
+    -fx-background-color: #e8ebef;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+}
+
+.label#ratingLabel {
+    -fx-font-size: 16px;
+    -fx-text-fill: #1d419d;
+    -fx-font-weight: bold;
+}
+
+.label#commentsLabel {
+    -fx-font-size: 16px;
+    -fx-padding: 10 0 0 0;
+    -fx-text-fill: #1d419d;
+    -fx-font-weight: bold;
+}

@@ -5,18 +5,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+
 <HBox xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Controllers.DoctorCardController"
-      spacing="10" style="-fx-padding: 10; -fx-background-color: #f9f9f9; -fx-background-radius: 10;">
+      spacing="10"
+      styleClass="doctor-card"
+      stylesheets="@../CSS/DoctorCard.css">
 
-    <ImageView fx:id="photoView" fitWidth="100" fitHeight="100" />
+    <ImageView fx:id="photoView" fitWidth="100" fitHeight="100" styleClass="doctor-photo" />
 
-    <VBox spacing="5">
-        <Label fx:id="nameLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
-        <Label fx:id="bioLabel" wrapText="true" />
-        <Label fx:id="ratingLabel" />
-        <Label fx:id="addressLabel" />
-        <Button fx:id="profileBtn" text="პროფილი" />
+    <VBox spacing="5" styleClass="doctor-info-box">
+        <Label fx:id="nameLabel" styleClass="doctor-name" />
+        <Label fx:id="bioLabel" wrapText="true" styleClass="doctor-bio" />
+        <Label fx:id="ratingLabel" styleClass="doctor-rating" />
+        <Label fx:id="addressLabel" styleClass="doctor-address" />
+        <Button fx:id="profileBtn" text="პროფილი" styleClass="profile-btn" />
     </VBox>
 </HBox>

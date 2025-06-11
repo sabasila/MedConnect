@@ -1,12 +1,14 @@
 package Controllers;
 
 import DAOS.DoctorDAO;
+import Class.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -14,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Class.Doctor;
 
+import java.io.IOException;
 import java.util.List;
 
 public class HomeController {
@@ -33,13 +36,17 @@ public class HomeController {
         this.currentUserId = userId;
         this.currentUserType = userType;
 
-        // ვანახლებ ტოპ შეფასებული ექიმების სია
-        //loadTopRatedDoctors();
 
-        if ("doctor".equals(currentUserType)) {
+
+        if (!"doctor".equals(userType) && btnPatients != null) {
             btnPatients.setVisible(false);
         }
+
+        loadTopRatedDoctors();
     }
+
+    @FXML private TextField searchField;
+
 
     private void loadTopRatedDoctors() {
         List<Doctor> topDoctors = doctorDAO.getTopRatedDoctors();
@@ -47,32 +54,19 @@ public class HomeController {
         topRatedDoctorsBox.getChildren().clear();
 
         for (Doctor doctor : topDoctors) {
-            HBox doctorCard = new HBox(10);
-            doctorCard.setStyle("-fx-padding: 10; -fx-background-color: #f0f0f0; -fx-background-radius: 10;");
-
-            ImageView photo = new ImageView();
             try {
-                Image image = new Image(doctor.getPhoto(), true);
-                photo.setImage(image);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/DoctorCard.fxml"));
+                HBox doctorCard = loader.load();
+
+                DoctorCardController controller = loader.getController();
+                controller.setDoctorData(doctor);
+                controller.setProfileButtonAction(() -> openDoctorProfile(doctor.getId()));
+
+                topRatedDoctorsBox.getChildren().add(doctorCard);
+
             } catch (Exception e) {
-                System.out.println("Image loading error: " + doctor.getPhoto());
+                e.printStackTrace();
             }
-
-            photo.setFitWidth(80);
-            photo.setFitHeight(80);
-
-            VBox infoBox = new VBox(5);
-            Label name = new Label("სახელი: " + doctor.getFullName());
-            Label bio = new Label("მოკლე აღწერა: " + doctor.getBio());
-            Label rating = new Label("შეფასება: " + String.format("%.1f", doctor.getAverageRating()) + " ⭐");
-
-            Button viewBtn = new Button("პროფილი");
-            viewBtn.setOnAction(e -> openDoctorProfile(doctor.getId()));
-
-            infoBox.getChildren().addAll(name, bio, rating, viewBtn);
-            doctorCard.getChildren().addAll(photo, infoBox);
-
-            topRatedDoctorsBox.getChildren().add(doctorCard);
         }
     }
 
@@ -92,23 +86,57 @@ public class HomeController {
     }
 
     @FXML
+    private void onProfileClicked() {
+        try {
+            FXMLLoader loader;
+            if (Session.isDoctor()) {
+                loader = new FXMLLoader(getClass().getResource("../FXML/doctor_profile.fxml"));
+            } else if (Session.isPatient()) {
+                loader = new FXMLLoader(getClass().getResource("../FXML/patient_profile.fxml"));
+            } else {
+                System.out.println("მომხმარებლის როლი არ არის განსაზღვრული");
+                return;
+            }
+
+            Parent root = loader.load();
+
+            if (Session.isDoctor()) {
+                DoctorProfileController controller = loader.getController();
+                controller.setDoctorId(Session.getUserId());
+            } else {
+                PatientProfileController controller = loader.getController();
+                controller.setPatientId(Session.getUserId());
+            }
+
+
+            Stage stage = (Stage) btnDoctors.getScene().getWindow(); // ან ნებისმიერი კომპონენტი
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
     private void onSearchDoctorClicked() {
-        navigate("/FXML/search_doctor.fxml");
+        navigate("../FXML/search_doctor.fxml");
     }
 
     @FXML
     private void onDoctorsClicked() {
-        navigate("/FXML/doctors_page.fxml");
+        navigate("../FXML/doctors_page.fxml");
     }
 
     @FXML
     private void onPatientsClicked() {
-        navigate("/FXML/patients_page.fxml");
+        navigate("../FXML/patients_page.fxml");
     }
 
     @FXML
     private void onHomeClicked() {
-        navigate("/FXML/home.fxml");
+        navigate("../FXML/home.fxml");
     }
 
     private void navigate(String fxml) {

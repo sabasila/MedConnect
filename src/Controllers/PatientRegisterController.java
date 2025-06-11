@@ -44,7 +44,7 @@ public class PatientRegisterController {
 
                 showAlert(Alert.AlertType.INFORMATION, "წარმატებით რეგისტრირდით!");
 
-                // გადამისამართება ავტორიზაციის გვერდზე
+
                 goToLoginPage(event);
             }
 
