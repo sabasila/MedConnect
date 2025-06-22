@@ -5,9 +5,14 @@ public class Doctor {
     private String fullName;
     private String photo;
     private String bio;
-    private String ClinicAddress;
+    private String clinicAddress;
     private double averageRating;
 
+    // დამატებული ველები
+    private String email;
+    private String category;
+
+    // Getters & Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -20,9 +25,16 @@ public class Doctor {
     public String getBio() { return bio; }
     public void setBio(String bio) { this.bio = bio; }
 
+    public String getClinicAddress() { return clinicAddress; }
+    public void setClinicAddress(String clinicAddress) { this.clinicAddress = clinicAddress; }
+
     public double getAverageRating() { return averageRating; }
     public void setAverageRating(double averageRating) { this.averageRating = averageRating; }
 
-    public String getClinicAddress() { return ClinicAddress; }
-    public void setClinicAddress(String clinicAddress) { this.ClinicAddress = clinicAddress; }
+    // დამატებული მეთოდები
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 }

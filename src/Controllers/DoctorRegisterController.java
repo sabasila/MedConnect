@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.UUID;
+
 import Class.Diagnosis;
 
 import Database.Database;
@@ -67,15 +69,44 @@ public class DoctorRegisterController
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("აირჩიეთ ფოტო");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("სურათები", "*.jpg", "*.jpeg", "*.png")
+                new FileChooser.ExtensionFilter("სურათები", "*.JPG", "*.jpeg", "*.png")
         );
         Window stage = photoFileLabel.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-            photoPath = file.getAbsolutePath();
-            photoFileLabel.setText(file.getName());
+            try {
+                String extension = "";
+                int i = file.getName().lastIndexOf('.');
+                if (i > 0) {
+                    extension = file.getName().substring(i);
+                }
+                String uniqueFileName = file.getName().substring(0, i) + "_" + UUID.randomUUID().toString() + extension;
+
+                File destDir = new File("src/images");
+                if (!destDir.exists()) {
+                    boolean created = destDir.mkdirs();
+                    System.out.println("Folder created? " + created);
+                }
+
+                File destFile = new File(destDir, uniqueFileName);
+                System.out.println("Copying file to: " + destFile.getAbsolutePath());
+
+                java.nio.file.Files.copy(
+                        file.toPath(),
+                        destFile.toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                );
+
+                photoPath = uniqueFileName;
+                photoFileLabel.setText(uniqueFileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "სურათის გადატანის შეცდომა: " + e.getMessage());
+            }
         }
     }
+
+
 
     @FXML
     private void handleDoctorRegister(ActionEvent event) {
@@ -162,3 +193,4 @@ public class DoctorRegisterController
         alert.showAndWait();
     }
 }
+

@@ -1,17 +1,10 @@
 package DAOS;
+import Class.Diagnosis;
 import Database.Database;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import Class.Diagnosis;
-
-import Database.Database;
-
 
 public class DiagnosisDAO {
 
@@ -19,38 +12,35 @@ public class DiagnosisDAO {
         return Database.getConnection();
     }
 
+    public void addDiagnosis(Diagnosis diagnosis) {
+        String sql = "INSERT INTO diagnoses (patient_id, description) VALUES (?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, diagnosis.getPatientId());
+            stmt.setString(2, diagnosis.getDescription());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public List<Diagnosis> getDiagnosesByPatientId(int patientId) {
-        List<Diagnosis> diagnoses = new ArrayList<>();
-        String sql = "SELECT id, patient_id, description, created_at FROM diagnoses WHERE patient_id = ? ORDER BY created_at DESC";
-
+        List<Diagnosis> list = new ArrayList<>();
+        String sql = "SELECT * FROM diagnoses WHERE patient_id = ?";
         try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, patientId);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Diagnosis diagnosis = new Diagnosis();
-                    diagnosis.setId(rs.getInt("id"));
-                    diagnosis.setPatientId(rs.getInt("patient_id"));
-                    diagnosis.setDescription(rs.getString("description"));
-
-                    Timestamp ts = rs.getTimestamp("created_at");
-                    if (ts != null) {
-                        diagnosis.setCreatedAt(ts.toLocalDateTime());
-                    } else {
-                        diagnosis.setCreatedAt(null);
-                    }
-
-                    diagnoses.add(diagnosis);
-                }
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, patientId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Diagnosis d = new Diagnosis();
+                d.setId(rs.getInt("id"));
+                d.setPatientId(rs.getInt("patient_id"));
+                d.setDescription(rs.getString("description"));
+                list.add(d);
             }
-
         } catch (SQLException e) {
-            System.err.println("დიაგნოზების წამოღების შეცდომა: " + e.getMessage());
+            e.printStackTrace();
         }
-
-        return diagnoses;
+        return list;
     }
 }

@@ -1,112 +1,146 @@
+
 package Controllers;
 
+import Class.Diagnosis;
+import Class.Patient;
 import DAOS.DiagnosisDAO;
 import DAOS.PatientDAO;
+import Controllers.HomeController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 
+import java.io.IOException;
 import java.util.List;
-import Class.Patient;
-import Class.Diagnosis;
-import DAOS.RatingDAO;
-import Database.Database;
-
 
 public class PatientProfileController {
-    private int patientId;
 
-    @FXML private Label patientName;
-    @FXML private Label patientPersonalId;
-    @FXML private VBox diagnosesBox;
+    private int userId;
+    private String role; // "patient" or "doctor"
 
-    // Class.Doctor rating UI elements
-    @FXML private HBox starRatingBox;
-    @FXML private TextArea ratingCommentArea;
-    @FXML private Button submitRatingBtn;
+    @FXML
+    private Label patientName;
 
-    private int selectedRating = 0;
+    @FXML
+    private Label patientPersonalId;
 
-    private DiagnosisDAO diagnosisDAO = new DiagnosisDAO();
-    private PatientDAO patientDAO = new PatientDAO();
-    private RatingDAO ratingDAO = new RatingDAO();
+    @FXML
+    private VBox diagnosesBox;
 
-    public void setPatientId(int id) {
-        this.patientId = id;
-        loadPatientData();
-        loadDiagnoses();
-        setupStarRating();
+    @FXML
+    private VBox doctorUI;
+
+    @FXML
+    private TextArea diagnosesInput;
+
+    @FXML
+    private Button addDiagnosisButton;
+
+    @FXML
+    private Button logoutButton;
+
+    private final DiagnosisDAO diagnosisDAO = new DiagnosisDAO();
+    private final PatientDAO patientDAO = new PatientDAO();
+
+    public void setUserData(int userId, String role) {
+        this.userId = userId;
+        this.role = role;
+
+        // თუ მომხმარებელი ექიმია, ვაჩვენებთ ექიმის UI-ს
+        boolean isDoctor = "doctor".equalsIgnoreCase(role);
+
+        doctorUI.setVisible(isDoctor);
+        doctorUI.setManaged(isDoctor);
+
+        // Logout ღილაკი მხოლოდ პაციენტისთვის გამოჩნდება
+        logoutButton.setVisible(!isDoctor);
+        logoutButton.setManaged(!isDoctor);
+
+        setPatientId(userId);
     }
 
-    private void loadPatientData() {
-        Patient patient = patientDAO.getPatientById(patientId);
+
+    public void setPatientId(int id) {
+        Patient patient = patientDAO.getPatientById(id);
         if (patient != null) {
+            this.userId = patient.getId();
             patientName.setText(patient.getFullName());
             patientPersonalId.setText(patient.getPersonalId());
+            loadDiagnoses();
         }
     }
 
     private void loadDiagnoses() {
-        List<Diagnosis> diagnoses = diagnosisDAO.getDiagnosesByPatientId(patientId);
         diagnosesBox.getChildren().clear();
+        List<Diagnosis> diagnoses = diagnosisDAO.getDiagnosesByPatientId(userId);
         for (Diagnosis d : diagnoses) {
             Label label = new Label(d.getDescription() + " (" + d.getCreatedAt() + ")");
+            label.setStyle("-fx-background-color: #f0f0f0; -fx-padding: 5;");
             diagnosesBox.getChildren().add(label);
         }
     }
 
-    // ვარსკვლავების შექმნა და არჩევის ფუნქცია
-    private void setupStarRating() {
-        starRatingBox.getChildren().clear();
-        for (int i = 1; i <= 5; i++) {
-            Label star = new Label("☆");
-            final int starValue = i;
-            star.setStyle("-fx-font-size: 24; -fx-cursor: hand;");
-            star.setOnMouseClicked(e -> {
-                selectedRating = starValue;
-                updateStars();
-            });
-            starRatingBox.getChildren().add(star);
-        }
-    }
-
-    private void updateStars() {
-        for (int i = 0; i < 5; i++) {
-            Label star = (Label) starRatingBox.getChildren().get(i);
-            if (i < selectedRating) {
-                star.setText("★");
-            } else {
-                star.setText("☆");
-            }
-        }
-    }
-
-    // ექიმისთვის შეფასების დამატება (მაგალითად, ღილაკით)
     @FXML
-    private void onSubmitRating() {
-        if (selectedRating == 0) {
-            System.out.println("გთხოვთ აირჩიოთ შეფასება ვარსკვლავებით");
-            return;
+    private void onSubmitDiagnosis() {
+        String diagnosisText = diagnosesInput.getText().trim();
+
+        if (!diagnosisText.isEmpty()) {
+            Diagnosis newDiagnosis = new Diagnosis();
+            newDiagnosis.setPatientId(userId);
+            newDiagnosis.setDescription(diagnosisText);
+            diagnosisDAO.addDiagnosis(newDiagnosis);
+            diagnosesInput.clear();
+            loadDiagnoses();
+        } else {
+            showAlert(Alert.AlertType.WARNING, "გთხოვ შეიყვანე დიაგნოზი");
         }
-
-        String comment = ratingCommentArea.getText().trim();
-        int doctorId = getCurrentDoctorIdSomehow(); // TODO: პოულობს ექიმის ID-ს
-
-        ratingDAO.addRating(doctorId, patientId, selectedRating, comment);
-
-        // შეფასების დამატების შემდეგ - კომენტარი და ვარსკვლავები გაასუფთავე
-        ratingCommentArea.clear();
-        selectedRating = 0;
-        updateStars();
-
-        System.out.println("შეფასება დამატებულია წარმატებით");
     }
 
-    // TODO: რეალური მეთოდი ექიმის ID-ს მისაღებად (მომავალი კონტექსტიდან ან სესიისგან)
-    private int getCurrentDoctorIdSomehow() {
-        return 1; // ტესტისთვის, შეცვალე საჭიროების მიხედვით
+    private void showAlert(Alert.AlertType type, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle("შეტყობინება");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void goHome(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/home.fxml"));
+            Parent root = loader.load();
+            HomeController controller = loader.getController();
+            controller.setUserData(this.userId, this.role);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("მთავარი გვერდი");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "მთავარ გვერდზე გადასვლა ვერ მოხერხდა");
+        }
+    }
+
+    @FXML
+    private void logout(ActionEvent event) {
+        switchScene(event, "/FXML/login.fxml");
+    }
+
+    private void switchScene(ActionEvent event, String fxmlPath) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

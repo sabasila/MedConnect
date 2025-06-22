@@ -10,8 +10,6 @@ import java.util.List;
 
 public class DoctorDAO {
 
-    private static Connection conn = Database.getConnection();
-
     public List<Doctor> getTopRatedDoctors() {
         List<Doctor> doctors = new ArrayList<>();
 
@@ -26,7 +24,8 @@ public class DoctorDAO {
             LIMIT 5
         """;
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -59,7 +58,9 @@ public class DoctorDAO {
             GROUP BY u.full_name, d.photo, d.bio, d.clinic_address
         """;
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setInt(1, doctorId);
             ResultSet rs = stmt.executeQuery();
 
@@ -85,7 +86,9 @@ public class DoctorDAO {
         List<Rating> ratings = new ArrayList<>();
         String sql = "SELECT rating, comment FROM ratings WHERE doctor_id = ? ORDER BY id DESC";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setInt(1, doctorId);
             ResultSet rs = stmt.executeQuery();
 
@@ -105,33 +108,78 @@ public class DoctorDAO {
     public void addRating(int doctorId, int patientId, int rating, String comment) {
         String sql = "INSERT INTO ratings (doctor_id, patient_id, rating, comment) VALUES (?, ?, ?, ?)";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setInt(1, doctorId);
             stmt.setInt(2, patientId);
             stmt.setInt(3, rating);
             stmt.setString(4, comment);
-            stmt.executeUpdate();
 
+            int rows = stmt.executeUpdate();
+            System.out.println("Rating insert successful. Rows affected: " + rows);
+
+        } catch (SQLException e) {
+            System.err.println("Error while inserting rating:");
+            e.printStackTrace();
+            if (e.getSQLState().equals("23505")) { // duplicate key violation
+                System.err.println("ამ ექიმისთვის უკვე შეფასებულია ამ მომხმარებლის მიერ.");
+            } else {
+                e.printStackTrace();
+            }
+        }
+    }
+    public List<Doctor> searchDoctors(String keyword) {
+        List<Doctor> doctors = new ArrayList<>();
+        String sql = "SELECT u.id, u.full_name, u.email, d.category, d.certification_file, d.photo, d.clinic_address, d.bio " +
+                "FROM doctors d " +
+                "JOIN users u ON d.user_id = u.id " +
+                "WHERE u.full_name ILIKE ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Doctor doctor = new Doctor();
+                doctor.setId(rs.getInt("id"));
+                doctor.setFullName(rs.getString("full_name"));
+                doctor.setEmail(rs.getString("email"));
+                doctor.setCategory(rs.getString("category"));
+                doctor.setPhoto(rs.getString("photo"));
+                doctor.setClinicAddress(rs.getString("clinic_address"));
+                doctor.setBio(rs.getString("bio"));
+
+                doctors.add(doctor);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return doctors;
     }
+
+
 
     public static List<Doctor> getDoctorsByCategory(String category) {
         List<Doctor> doctors = new ArrayList<>();
 
         String sql = """
-        SELECT u.id, u.full_name, d.photo, d.bio, d.clinic_address,
-               COALESCE(AVG(r.rating), 0) AS avg_rating
-        FROM users u
-        JOIN doctors d ON u.id = d.user_id
-        LEFT JOIN ratings r ON u.id = r.doctor_id
-        WHERE d.category = ?
-        GROUP BY u.id, u.full_name, d.photo, d.bio, d.clinic_address
-        ORDER BY avg_rating DESC
-    """;
+            SELECT u.id, u.full_name, d.photo, d.bio, d.clinic_address,
+                   COALESCE(AVG(r.rating), 0) AS avg_rating
+            FROM users u
+            JOIN doctors d ON u.id = d.user_id
+            LEFT JOIN ratings r ON u.id = r.doctor_id
+            WHERE d.category = ?
+            GROUP BY u.id, u.full_name, d.photo, d.bio, d.clinic_address
+            ORDER BY avg_rating DESC
+        """;
 
-        try (PreparedStatement stmt = Database.getConnection().prepareStatement(sql)) {
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, category);
             ResultSet rs = stmt.executeQuery();
 
@@ -158,7 +206,8 @@ public class DoctorDAO {
         List<String> categories = new ArrayList<>();
         String sql = "SELECT DISTINCT category FROM doctors ORDER BY category ASC";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {

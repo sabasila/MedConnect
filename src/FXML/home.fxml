@@ -8,6 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controllers.HomeController"
+            styleClass="border-pane"
             stylesheets="@../CSS/home.css">
 
     <top>
@@ -16,25 +17,25 @@
                 <Insets top="10" right="20" bottom="10" left="20"/>
             </padding>
 
-            <ImageView fitHeight="40" fitWidth="120">
+            <ImageView fx:id="logoImage" fitHeight="40" fitWidth="120" onMouseClicked="#onLogoClicked" style="-fx-cursor: hand;">
                 <image>
                     <Image url="/Images/logo.png"/>
                 </image>
             </ImageView>
 
-            <TextField fx:id="searchField" promptText="იპოვე ექიმი..." />
-            <Button text="ძებნა" />
+            <TextField fx:id="searchField" promptText="იპოვე ექიმი..." onAction="#onSearchDoctorClicked" />
 
             <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
 
-            <Button fx:id="btnPatients" text="პაციენტები" />
+            <Button fx:id="btnPatients" text="პაციენტები" onAction="#onPatientClicked" />
             <Button fx:id="btnDoctors" text="ექიმები" onAction="#onDoctorsClicked"/>
-            <Button text="👤" onAction="#onProfileClicked" />
+            <Button fx:id="btnProfile" text="👤" onAction="#onProfileClicked" />
         </HBox>
     </top>
 
     <center>
         <VBox fx:id="topRatedDoctorsBox" spacing="10" alignment="TOP_CENTER" style="-fx-padding: 20;">
+            <!-- აქ ჩაიტვირთება ექიმების კარტები -->
         </VBox>
     </center>
 

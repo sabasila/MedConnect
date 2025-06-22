@@ -12,55 +12,36 @@ import Database.Database;
 
 
 public class RatingDAO {
-
-    private Connection getConnection() throws SQLException {
-        return Database.getConnection();
-    }
-
-    // Adds a new rating to the database
-    public void addRating(int doctorId, int patientId, int rating, String comment) {
-        String sql = "INSERT INTO ratings (doctor_id, patient_id, rating, comment) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, doctorId);
-            ps.setInt(2, patientId);
-            ps.setInt(3, rating);
-            ps.setString(4, comment);
-
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("შეფასების დამატების შეცდომა: " + e.getMessage());
+    public static void addRating(int doctorId, int patientId, int rating, String comment) {
+        try (Connection conn = Database.getConnection()) {
+            String sql = "INSERT INTO ratings (doctor_id, patient_id, rating, comment) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, doctorId);
+            stmt.setInt(2, patientId);
+            stmt.setInt(3, rating);
+            stmt.setString(4, comment);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    // Retrieves all ratings for a specific doctor
-    public List<Rating> getRatingsByDoctorId(int doctorId) {
-        List<Rating> ratings = new ArrayList<>();
-        String sql = "SELECT id, doctor_id, patient_id, rating, comment, created_at FROM ratings WHERE doctor_id = ? ORDER BY created_at DESC";
-
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, doctorId);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Rating rating = new Rating();
-                    rating.setId(rs.getInt("id"));
-                    rating.setDoctorId(rs.getInt("doctor_id"));
-                    rating.setPatientId(rs.getInt("patient_id"));
-                    rating.setRating(rs.getInt("rating"));
-                    rating.setComment(rs.getString("comment"));
-                    rating.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
-
-                    ratings.add(rating);
-                }
+    public static List<Rating> getRatingsForDoctor(int doctorId) {
+        List<Rating> list = new ArrayList<>();
+        try (Connection conn = Database.getConnection()) {
+            String sql = "SELECT rating, comment FROM ratings WHERE doctor_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, doctorId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Rating r = new Rating();
+                r.setRating(rs.getInt("rating"));
+                r.setComment(rs.getString("comment"));
+                list.add(r);
             }
-
-        } catch (SQLException e) {
-            System.err.println("შეფასებების წამოღების შეცდომა: " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return ratings;
+        return list;
     }
 }

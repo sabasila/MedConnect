@@ -43,7 +43,7 @@ public class DoctorsByCategoryController {
 
                 DoctorCardController controller = loader.getController();
                 controller.setDoctorData(doctor);
-                controller.setProfileButtonAction(() -> openDoctorProfile(doctor.getId()));
+                //controller.setProfileButtonAction(() -> openDoctorProfile(doctor.getId()));
 
                 doctorsListBox.getChildren().add(doctorCard);
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.Doctor_Profile_Controller"
+            stylesheets="@../CSS/DoctorProfile_.css"
+            prefWidth="400" prefHeight="600">
+
+    <top>
+        <Label text="პაციენტის პროფილი" style="-fx-font-size: 20px; -fx-padding: 10;" BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <HBox spacing="10">
+                <Label text="სახელი და გვარი:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="patientNameLabel"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="პირადი ნომერი:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="patientPersonalIdLabel"/>
+            </HBox>
+
+            <Label text="დიაგნოზების სია:" style="-fx-font-weight: bold;"/>
+            <VBox fx:id="diagnosesBox" spacing="5" style="-fx-background-color: #f9f9f9; -fx-padding: 10; -fx-border-color: #ccc; -fx-border-radius: 5;"/>
+
+            <Label text="ახალი დიაგნოზი:" style="-fx-font-weight: bold;"/>
+            <TextArea fx:id="diagnosisInput" promptText="დაწერეთ დიაგნოზი..." prefRowCount="3" wrapText="true"/>
+
+            <Button text="დაამატე დიაგნოზი" onAction="#onAddDiagnosis"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        </VBox>
+    </center>
+
+</BorderPane>

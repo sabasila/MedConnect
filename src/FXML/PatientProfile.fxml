@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml"
+      stylesheets="@../CSS/patient_profile2.css"
+      fx:controller="Controllers.PatientProfile_Controller"
+      spacing="15" alignment="TOP_LEFT">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+
+    <!-- პაციენტის ინფორმაცია -->
+    <Label text="პაციენტის პროფილი" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <HBox spacing="10">
+        <Label text="სახელი და გვარი:" style="-fx-font-weight: bold;" />
+        <Label fx:id="patientName" />
+    </HBox>
+
+    <HBox spacing="10">
+        <Label text="პირადი ნომერი:" style="-fx-font-weight: bold;" />
+        <Label fx:id="patientPersonalId" />
+    </HBox>
+
+
+    <Label text="დიაგნოზების სია:" style="-fx-font-weight: bold;" />
+    <VBox fx:id="diagnosesBox" spacing="5"
+          style="-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1;" />
+
+
+    <Label text="ახალი დიაგნოზი:" style="-fx-font-weight: bold;" />
+    <TextArea fx:id="diagnosesInput" prefRowCount="3" wrapText="true" />
+
+    <Button text="დამატება" onAction="#onSubmitDiagnosis"
+            style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+
+    <Button text="გათიშვა" onAction="#handleCloseWindow"
+            style="-fx-background-color: #d9534f; -fx-text-fill: white;" />
+
+</VBox>

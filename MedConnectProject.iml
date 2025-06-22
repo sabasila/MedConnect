@@ -9,5 +9,48 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="postgresql-42.7.5" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <ANNOTATIONS>
+          <root url="jar://D:/okio-3.9.0.jar!/" />
+        </ANNOTATIONS>
+        <CLASSES>
+          <root url="jar://D:/okio-3.9.0.jar!/" />
+          <root url="jar://D:/okio-3.9.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://D:/okio-3.9.0.jar!/" />
+        </JAVADOC>
+        <NATIVE>
+          <root url="jar://D:/okio-3.9.0.jar!/" />
+        </NATIVE>
+        <SOURCES>
+          <root url="jar://D:/okio-3.9.0.jar!/" />
+          <root url="jar://D:/okio-3.9.0.jar!/" />
+        </SOURCES>
+        <jarDirectory url="jar://D:/okio-3.9.0.jar!/" recursive="false" />
+        <jarDirectory url="jar://D:/okio-3.9.0.jar!/" recursive="false" />
+        <jarDirectory url="jar://D:/okio-3.9.0.jar!/" recursive="false" type="SOURCES" />
+        <jarDirectory url="jar://D:/okio-3.9.0.jar!/" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://D:/okhttp-4.12.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://D:/kotlin-stdlib-1.9.0 (1).jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

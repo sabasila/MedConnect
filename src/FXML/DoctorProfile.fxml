@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.DoctorProfile_Controller"
+            stylesheets="@../CSS/doctorprofile.css">
+
+    <top>
+        <Label text="ექიმის პროფილი" style="-fx-font-size: 20px; -fx-padding: 10;" />
+    </top>
+
+    <center>
+        <VBox spacing="15" alignment="TOP_CENTER" style="-fx-padding: 20;">
+
+            <HBox fx:id="photoAndInfoHBox" styleClass="hbox-photo-and-info">
+
+                <ImageView fx:id="photoImageView" styleClass="image-view" fitWidth="150" fitHeight="150" preserveRatio="true"/>
+
+                <VBox styleClass="vbox-photo-controls" spacing="5">
+                    <Label text="ფოტო:" styleClass="label"/>
+                    <Button text="ფოტოს შეცვლა" onAction="#handleUploadPhoto" />
+                    <Label fx:id="photoNameLabel" styleClass="label-small"/>
+                </VBox>
+
+            </HBox>
+
+            <VBox styleClass="vbox-fields" spacing="10">
+
+                <Label text="სახელი:" styleClass="label"/>
+                <TextField fx:id="fullNameField"/>
+
+                <Label text="ელ.ფოსტა:" styleClass="label"/>
+                <TextField fx:id="emailField"/>
+
+                <Label text="კატეგორია:" styleClass="label"/>
+                <TextField fx:id="categoryField"/>
+
+                <Label text="კლინიკის მისამართი:" styleClass="label"/>
+                <TextField fx:id="clinicAddressField"/>
+
+                <Label text="ბიო:" styleClass="label"/>
+                <TextArea fx:id="bioArea" wrapText="true" prefRowCount="4"/>
+
+                <Label text="სერტიფიკატის ფაილი:" styleClass="label"/>
+                <TextField fx:id="certificationField"/>
+
+            </VBox>
+
+            <HBox styleClass="hbox-buttons" spacing="10">
+                <Button text="შენახვა" fx:id="saveButton" onAction="#handleSave" />
+                <Button text="Logout" onAction="#handleLogout" />
+                <Button text="მთავარი" onAction="#handleGoHome" styleClass="back-button"/>
+            </HBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

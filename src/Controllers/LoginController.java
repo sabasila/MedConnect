@@ -9,12 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.io.IOException;
-
-import DAOS.UserDAO;
+import Class.Session;
 import Class.User;
+import DAOS.UserDAO;
 
 
+import java.io.IOException;
 
 public class LoginController {
 
@@ -30,19 +30,25 @@ public class LoginController {
         User user = userDAO.authenticate(email, password);
 
         if (user != null) {
+            // ✅ ვაწესებთ სესიას სწორად!
+            Session.setUser(user.getId(), user.getUserType());
+            System.out.println("Logged in as ID = " + user.getId() + ", Role = " + user.getUserType());
+
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/home.fxml"));
-
                 Parent root = loader.load();
 
+                // მომხმარებლის მონაცემების გადაცემა
                 HomeController controller = loader.getController();
                 controller.setUserData(user.getId(), user.getUserType());
 
+                // გადავდივართ მთავარ გვერდზე
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(root));
                 newStage.setTitle("მთავარი გვერდი");
                 newStage.show();
 
+                // ვხურავთ ლოგინის ფანჯარას
                 Stage oldStage = (Stage) emailField.getScene().getWindow();
                 oldStage.close();
 
@@ -55,7 +61,6 @@ public class LoginController {
             showAlert("არასწორი ელ.ფოსტა ან პაროლი");
         }
     }
-
 
     @FXML
     private void goToRegisterChoice(ActionEvent event) {

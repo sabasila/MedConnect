@@ -5,10 +5,14 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx/21"
-            fx:controller="Controllers.PatientProfileController">
+            stylesheets="@../CSS/patient_profile.css"
+            fx:controller="Controllers.PatientProfileController" >
 
     <top>
-        <Label text="პაციენტის პროფილი" style="-fx-font-size: 20px; -fx-padding: 10;" />
+        <HBox spacing="10" style="-fx-padding: 10; -fx-alignment: center-left;">
+            <Label text="პაციენტის პროფილი" style="-fx-font-size: 20px;" />
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
     </top>
 
     <center>
@@ -24,13 +28,16 @@
 
             <Separator/>
 
-            <Label text="ექიმის შეფასება" style="-fx-font-size: 16px;" />
-            <HBox fx:id="starRatingBox" spacing="5" />
 
-            <TextArea fx:id="ratingCommentArea" promptText="დაწერე კომენტარი..." prefRowCount="3" wrapText="true"/>
 
-            <Button fx:id="submitRatingBtn" text="დამატება" onAction="#onSubmitRating"/>
+
+            <VBox spacing="10">
+                <Button fx:id="logoutButton"  text="Logout" onAction="#logout"/>
+            </VBox>
+                <Button text="უკან" onAction="#goHome"/>
+
         </VBox>
     </center>
-
 </BorderPane>
+
+
